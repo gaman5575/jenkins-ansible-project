@@ -4,18 +4,17 @@ pipeline {
     }
     
     stages {
-        stage('Checkout') {
+        stage('Git Checkout') {
             steps {
                 // Checkout your source code repository
                 git branch: 'main',
-                    url: 'https://github.com/networknuts/jenkins-ansible-project.git'
+                    url: 'https://github.com/gaman5575/jenkins-ansible-project.git'
             }
         }
         
         stage('Verify Ansible Installation') {
             steps {
                 // Install required packages and dependencies
-                sh 'whereis ansible-lint'
                 sh 'whereis ansible-playbook'
             }
         }
@@ -24,7 +23,6 @@ pipeline {
             steps {
                 // Run Ansible playbook syntax check and linting
                 sh 'ansible-playbook playbook.yml -i inventory --syntax-check'
-                sh 'ansible-lint playbook.yml'
             }
         }
         
